@@ -1,0 +1,15 @@
+[project]
+name = "praisonai"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "asyncio>=3.4.3",
+    "gradio>=5.37.0",
+    "ollama>=0.5.1",
+    "openai>=1.95.1",
+    "praisonaiagents[knowledge,llm]>=0.0.132",
+    "requests>=2.32.4",
+    "streamlit>=1.46.1",
+]
