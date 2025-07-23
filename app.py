@@ -10,7 +10,7 @@ search_agent = Agent(
     You will provide a list of apartments with the best one based on price per night, location, and amenities.
     You will also need to check the availability of the apartment for the given dates.
     """,
-    llm="ollama/mistral",
+    llm="gpt-4o-mini",
     tools=MCP("npx -y @openbnb/mcp-server-airbnb --ignore-robots-txt")
 )
 
