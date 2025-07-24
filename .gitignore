@@ -11,6 +11,7 @@ wheels/
 
 #keys
 .env
+.vscode
 
 # Playwright
 node_modules/
