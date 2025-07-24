@@ -2007,6 +2007,7 @@ dependencies = [
     { name = "ollama" },
     { name = "openai" },
     { name = "praisonaiagents", extra = ["knowledge", "llm"] },
+    { name = "python-dotenv" },
     { name = "requests" },
     { name = "streamlit" },
 ]
@@ -2018,6 +2019,7 @@ requires-dist = [
     { name = "ollama", specifier = ">=0.5.1" },
     { name = "openai", specifier = ">=1.95.1" },
     { name = "praisonaiagents", extras = ["knowledge", "llm"], specifier = ">=0.0.132" },
+    { name = "python-dotenv", specifier = ">=1.0.0" },
     { name = "requests", specifier = ">=2.32.4" },
     { name = "streamlit", specifier = ">=1.46.1" },
 ]

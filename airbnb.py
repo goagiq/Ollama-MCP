@@ -1,9 +1,14 @@
 import requests 
 from praisonaiagents import Agent, MCP
 import gradio as gr
+import os
+from dotenv import load_dotenv
 
+# Load environment variables from .env file
+load_dotenv()
 
-OLLAMA_URL = "http://localhost:11434"  # Default Ollama URL
+OLLAMA_URL = os.getenv("OLLAMA_URL", "http://localhost:11434")  # Default Ollama URL
+OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 
 def get_ollama_models_http():
     try:
@@ -19,8 +24,14 @@ def get_ollama_models_http():
 ollama_models = get_ollama_models_http() if get_ollama_models_http() else ['llama3.2:latest']
 
 def search_airbnb_apartment(query, ollama_model):
-    if not ollama_model:
-        return "Please select an Ollama Model."
+    if not OPENAI_API_KEY and not ollama_model:
+        return "Please set OPENAI_API_KEY in .env file or select an Ollama Model."
+    
+    # Use OpenAI if API key is available, otherwise use Ollama
+    if OPENAI_API_KEY:
+        llm_config = "gpt-4o-mini"
+    else:
+        llm_config = f"ollama/{ollama_model}"
     
     agent = Agent(
         instructions="""
@@ -28,7 +39,7 @@ def search_airbnb_apartment(query, ollama_model):
         Provide a list of apartments based on price per night, location, and amenities.
         Check the availability for given dates.
         """,
-        llm=f"ollama/{ollama_model}",
+        llm=llm_config,
         tools=MCP("npx -y @openbnb/mcp-server-airbnb --ignore-robots-txt")
     )
     
@@ -44,12 +55,12 @@ demo = gr.Interface(
             label="Search Query",
             placeholder="Enter your search query for Airbnb apartments, e.g., '2 bedroom apartment in New York from 2023-10-01 to 2023-10-07'."
         ),
-        gr.Dropdown(choices=ollama_models, label="Ollama Model", value='llama3.2:latest')
+        gr.Dropdown(choices=ollama_models, label="Ollama Model (used only if no OpenAI API key)", value='llama3.2:latest')
     ],
     outputs=gr.Textbox(),
     title="Airbnb Apartment Search",
-    description="Search for an apartment on Airbnb.",
+    description=f"Search for an apartment on Airbnb. {'Using OpenAI API' if OPENAI_API_KEY else 'Using Ollama local models'}.",
 )
 
 if __name__ == "__main__":
-    demo.launch()
+    demo.launch(server_port=8002)

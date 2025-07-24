@@ -1,0 +1,22 @@
+{
+  "name": "ollama-mcp",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/goagiq/Ollama-MCP.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/goagiq/Ollama-MCP/issues"
+  },
+  "homepage": "https://github.com/goagiq/Ollama-MCP#readme",
+  "description": "",
+  "devDependencies": {
+    "@playwright/test": "^1.54.1",
+    "@types/node": "^24.1.0"
+  }
+}
